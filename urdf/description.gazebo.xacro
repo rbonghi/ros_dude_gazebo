@@ -25,6 +25,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <robot name="dude_robot_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
 
+  <xacro:include filename="$(find ros_dude_gazebo)/urdf/xtion_camera.gazebo.xacro"/>
+
   <xacro:include filename="$(find ros_dude_description)/urdf/dude.urdf.xacro" />
   <xacro:dude_robot />
 
@@ -53,25 +55,26 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <material>Gazebo/Black</material>
   </gazebo>
 
+  <!--<xacro:xtion_camera_gazebo prefix="xtion_camera"/>-->
+
   <!-- Differential drive -->
 	<gazebo>
 		<plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
 		  <alwaysOn>true</alwaysOn>
 		  <updateRate>10.0</updateRate>
-		  <leftJoint>left</leftJoint>
-		  <rightJoint>right</rightJoint>
-		  <wheelSeparation>0.5380</wheelSeparation>
-		  <wheelDiameter>0.2410</wheelDiameter>
+		  <leftJoint>right</leftJoint>
+		  <rightJoint>left</rightJoint>
+		  <wheelSeparation>${wheel_offset_y*2}</wheelSeparation>
+		  <wheelDiameter>${wheel_radius*2}</wheelDiameter>
 		  <torque>20</torque>
 		  <commandTopic>cmd_vel</commandTopic>
 		  <odometryTopic>odom</odometryTopic>
 		  <odometryFrame>odom</odometryFrame>
 		  <robotBaseFrame>base_link</robotBaseFrame>
+      <publishWheelTF>true</publishWheelTF>
+      <publishWheelJointState>true</publishWheelJointState>
 		</plugin>
 	</gazebo>
-
-  <!--<xacro:include filename="$(find ros_dude_description)/urdf/dude.urdf.xacro" />
-  <xacro:include filename="$(find rodo_dude_gazebo)/urdf/dude.gazebo.xacro" />-->
 
   <!-- Gazebo plugin for ROS Control -->
   <!--<gazebo>
