@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<robot name="dude_robot_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find ros_dude_description)/urdf/dude.urdf.xacro" />
+  <xacro:dude_robot />
+
+  <!--<xacro:include filename="$(find ros_dude_description)/urdf/dude.urdf.xacro" />
+  <xacro:include filename="$(find rodo_dude_gazebo)/urdf/dude.gazebo.xacro" />-->
+
+  <!-- Gazebo plugin for ROS Control -->
+  <!--<gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>-->
+
+  <!--<xacro:dude />-->
+
+  <!--<xacro:husky_robot_gazebo />-->
+
+</robot>
