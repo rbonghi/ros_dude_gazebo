@@ -1,9 +1,74 @@
 <?xml version="1.0"?>
+<!--
+Software License Agreement (BSD)
 
+\file      description.gazebo.xacro
+\authors   Raffaello Bonghi <raffaello.bonghi@officinerobotiche.it
+\copyright Copyright (c) 2015, Officine Robotiche, All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that
+the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the
+   following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+   following disclaimer in the documentation and/or other materials provided with the distribution.
+ * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
+   products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WAR-
+RANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, IN-
+DIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
 <robot name="dude_robot_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:include filename="$(find ros_dude_description)/urdf/dude.urdf.xacro" />
   <xacro:dude_robot />
+
+  <!-- base_link -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+
+  <!-- column_body_Link -->
+  <gazebo reference="column_body_Link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- electronics_Link -->
+  <gazebo reference="electronics_Link">
+    <material>Gazebo/Green</material>
+  </gazebo>
+
+  <!-- wall_body_Link -->
+  <!--<gazebo reference="wall_body_Link">
+    <material>Gazebo/WhiteEmissive</material>
+  </gazebo>-->
+
+  <!-- battery_Link -->
+  <gazebo reference="battery_Link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- Differential drive -->
+	<gazebo>
+		<plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+		  <alwaysOn>true</alwaysOn>
+		  <updateRate>10.0</updateRate>
+		  <leftJoint>left</leftJoint>
+		  <rightJoint>right</rightJoint>
+		  <wheelSeparation>0.5380</wheelSeparation>
+		  <wheelDiameter>0.2410</wheelDiameter>
+		  <torque>20</torque>
+		  <commandTopic>cmd_vel</commandTopic>
+		  <odometryTopic>odom</odometryTopic>
+		  <odometryFrame>odom</odometryFrame>
+		  <robotBaseFrame>base_link</robotBaseFrame>
+		</plugin>
+	</gazebo>
 
   <!--<xacro:include filename="$(find ros_dude_description)/urdf/dude.urdf.xacro" />
   <xacro:include filename="$(find rodo_dude_gazebo)/urdf/dude.gazebo.xacro" />-->
@@ -14,9 +79,5 @@
       <robotNamespace>/</robotNamespace>
     </plugin>
   </gazebo>-->
-
-  <!--<xacro:dude />-->
-
-  <!--<xacro:husky_robot_gazebo />-->
 
 </robot>
