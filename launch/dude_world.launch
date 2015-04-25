@@ -31,6 +31,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
+  <arg name="robot_name" default="dude_gazebo"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -42,9 +43,13 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <arg name="headless" value="$(arg headless)"/>
   </include>
 
+  <!-- name robot -->
+  <rosparam param="/info/robot_name" subst_value="True">$(arg robot_name)</rosparam>
+
   <!-- Send the 4UDE Robot URDF/XACRO to param server -->
   <param name="robot_description" 
-	command="$(find xacro)/xacro.py '$(find ros_dude_gazebo)/urdf/description.gazebo.xacro'" />
+	command="$(find xacro)/xacro.py '$(find ros_dude_gazebo)/urdf/description.gazebo.xacro'
+        robot_name:=$(arg robot_name)" />
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
