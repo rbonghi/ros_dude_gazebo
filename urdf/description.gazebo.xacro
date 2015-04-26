@@ -25,12 +25,10 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <robot name="dude_robot_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:arg name="robot_name" default="dude_gazebo" />
-
   <xacro:include filename="$(find ros_dude_gazebo)/urdf/xtion_camera.gazebo.xacro"/>
 
   <xacro:include filename="$(find ros_dude_description)/urdf/dude.urdf.xacro" />
-  <xacro:dude_robot />
+  <xacro:macro name="dude_robot_gazebo">
 
   <!-- base_link -->
   <gazebo reference="base_link">
@@ -57,7 +55,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <material>Gazebo/Black</material>
   </gazebo>
 
-  <!--<xacro:xtion_camera_gazebo prefix="xtion_camera"/>-->
+  <xacro:xtion_camera_gazebo prefix="xtion_camera"/>
 
   <!-- Differential drive -->
 	<gazebo>
@@ -69,9 +67,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 		  <wheelSeparation>${wheel_offset_y*2}</wheelSeparation>
 		  <wheelDiameter>${wheel_radius*2}</wheelDiameter>
 		  <torque>20</torque>
-		  <commandTopic>/$(arg robot_name)/cmd_vel</commandTopic>
-		  <odometryTopic>/$(arg robot_name)/odom</odometryTopic>
-		  <odometryFrame>/$(arg robot_name)/odom</odometryFrame>
+		  <commandTopic>/cmd_vel</commandTopic>
+		  <odometryTopic>/odom</odometryTopic>
+		  <odometryFrame>/odom</odometryFrame>
 		  <robotBaseFrame>base_link</robotBaseFrame>
       <publishWheelTF>true</publishWheelTF>
       <publishWheelJointState>true</publishWheelJointState>
@@ -84,5 +82,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <robotNamespace>/</robotNamespace>
     </plugin>
   </gazebo>-->
+</xacro:macro>
 
 </robot>
