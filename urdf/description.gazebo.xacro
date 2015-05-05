@@ -30,25 +30,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:include filename="$(find ros_dude_description)/urdf/dude.urdf.xacro" />
   <xacro:dude_robot_gazebo />
 
-  <!-- Differential drive -->
-	<gazebo>
-		<plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-		  <alwaysOn>true</alwaysOn>
-		  <updateRate>10.0</updateRate>
-		  <leftJoint>left</leftJoint>
-		  <rightJoint>right</rightJoint>
-		  <wheelSeparation>${wheel_offset_y*2}</wheelSeparation>
-		  <wheelDiameter>${wheel_radius*2}</wheelDiameter>
-		  <torque>20</torque>
-		  <commandTopic>cmd_vel</commandTopic>
-		  <odometryTopic>odom</odometryTopic>
-		  <odometryFrame>odom</odometryFrame>
-		  <robotBaseFrame>base_link</robotBaseFrame>
-      <publishWheelTF>true</publishWheelTF>
-      <publishWheelJointState>true</publishWheelJointState>
-		</plugin>
-	</gazebo>
-
   <!-- base_link -->
   <gazebo reference="base_link">
     <material>Gazebo/Yellow</material>
@@ -65,16 +46,35 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   </gazebo>
 
   <!-- wall_body_Link -->
-  <!--<gazebo reference="wall_body_Link">
-    <material>Gazebo/WhiteEmissive</material>
-  </gazebo>-->
+  <gazebo reference="wall_body_Link">
+    <material>Gazebo/White</material>
+  </gazebo>
 
   <!-- battery_Link -->
   <gazebo reference="battery_Link">
-    <material>Gazebo/Black</material>
+    <material>Gazebo/Blue</material>
   </gazebo>
 
-  <xacro:xtion_camera_gazebo prefix="xtion_camera"/>
+  <!--<xacro:xtion_camera_gazebo prefix="xtion_camera"/>-->
+
+  <!-- Differential drive -->
+	<gazebo>
+		<plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+		  <alwaysOn>true</alwaysOn>
+		  <updateRate>10.0</updateRate>
+		  <leftJoint>Left</leftJoint>
+		  <rightJoint>Right</rightJoint>
+		  <wheelSeparation>${wheel_offset_y*2}</wheelSeparation>
+		  <wheelDiameter>${wheel_radius*2}</wheelDiameter>
+		  <torque>20</torque>
+		  <commandTopic>cmd_vel</commandTopic>
+		  <odometryTopic>odom</odometryTopic>
+		  <odometryFrame>odom</odometryFrame>
+		  <robotBaseFrame>base_link</robotBaseFrame>
+      <publishWheelTF>true</publishWheelTF>
+      <publishWheelJointState>true</publishWheelJointState>
+		</plugin>
+	</gazebo>
 
 
 </robot>
