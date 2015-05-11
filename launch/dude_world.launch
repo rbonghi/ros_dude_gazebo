@@ -46,17 +46,20 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <param name="robot_description" 
 	command="$(find xacro)/xacro.py '$(find ros_dude_gazebo)/urdf/description.gazebo.xacro'" />
 
-  <rosparam command="load" file="$(find ros_dude_control)/config/joint_position_control.yaml" />
+  <!-- Activate node to propagate the joint state -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
-    <!-- load the controllers -->
-  <node name="dude_controller" pkg="controller_manager" type="spawner" output="screen" 
-      args="joint_state_controller" />
+    <!-- Differential controller parameters -->
+    <rosparam command="load" file="$(find dude_control)/config/control.yaml" />
+
+    <!-- Launch and running al controller -->
+    <node name="base_controller_spawner" pkg="controller_manager" type="spawner" 
+            args="unav_joint_publisher unav_velocity_controller --shutdown-timeout 3"/>
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 	args="-urdf -model dude_robot_gazebo -param robot_description"/>
 
-  <!-- Activate node to propagate the joint state -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
 
 </launch>
