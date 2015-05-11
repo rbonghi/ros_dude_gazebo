@@ -25,36 +25,70 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <robot name="dude_robot_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find dude_description)/urdf/dude.urdf.xacro" />
-  <xacro:include filename="$(find ros_dude_gazebo)/urdf/dude.gazebo.xacro" />
+  <xacro:include filename="$(find ros_dude_gazebo)/urdf/accessories/asus_xtion_pro.gazebo.xacro"/>
 
-  <!-- Differential drive -->
-  <gazebo>
-    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-    <alwaysOn>true</alwaysOn>
-    <updateRate>10.0</updateRate>
-     <leftJoint>Left</leftJoint>
-    <rightJoint>Right</rightJoint>
-    <wheelSeparation>${wheel_offset_y*2}</wheelSeparation>
-    <wheelDiameter>${wheel_radius*2}</wheelDiameter>
-    <torque>20</torque>
-    <commandTopic>/unav_velocity_controller/cmd_vel</commandTopic>
-    <odometryTopic>odom</odometryTopic>
-    <odometryFrame>odom</odometryFrame>
-    <robotBaseFrame>base_link</robotBaseFrame>
-    <publishWheelTF>true</publishWheelTF>
-    <publishWheelJointState>true</publishWheelJointState>
-    </plugin>
+  <xacro:macro name="dude_robot_gazebo">
+
+  <!-- base_link -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Yellow</material>
   </gazebo>
 
-  <!-- Gazebo plugin for ROS Control -->
-  <!--<gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/</robotNamespace>
-    </plugin>
+  <!-- column_body_Link -->
+  <gazebo reference="column_body_Link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- electronics_Link -->
+  <gazebo reference="electronics_Link">
+    <material>Gazebo/Green</material>
+  </gazebo>
+
+  <!-- wall_body_Link -->
+  <gazebo reference="wall_body_Link">
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <!-- battery_Link -->
+  <gazebo reference="battery_Link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+  <xacro:xtion_pro_gazebo prefix="camera"/>
+
+  <!-- hokuyo -->
+  <!--<gazebo reference="rgbd_camera_depth_frame">
+    <sensor type="gpu_ray" name="head_hokuyo_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-${58.0*M_PI/360.0}</min_angle>
+            <max_angle>${58.0*M_PI/360.0}</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>6.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so">
+        <topicName>scan</topicName>
+        <frameName>rgbd_camera_depth_frame</frameName>
+      </plugin>
+    </sensor>
   </gazebo>-->
 
-  <xacro:dude_robot />
-  <xacro:dude_robot_gazebo />
+  </xacro:macro>
 
 </robot>
