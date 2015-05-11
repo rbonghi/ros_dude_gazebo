@@ -1,8 +1,7 @@
 <launch>
 
-    <arg name="camera" default="rgbd_camera" />
-    <arg name="depth" default="depth" />
-    <arg name="scan_topic" default="scan" />
+  <arg name="camera" default="rgbd_camera" />
+  <arg name="depth" default="depth" />
 
   <!-- Laserscan topic -->
   <arg name="scan_topic" default="scan"/>
