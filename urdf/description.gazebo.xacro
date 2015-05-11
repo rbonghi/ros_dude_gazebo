@@ -58,7 +58,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <!--<xacro:xtion_camera_gazebo prefix="xtion_camera"/>-->
 
   <!-- Differential drive -->
-  <gazebo>
+  <!--<gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
     <alwaysOn>true</alwaysOn>
     <updateRate>10.0</updateRate>
@@ -74,26 +74,34 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <publishWheelTF>true</publishWheelTF>
     <publishWheelJointState>true</publishWheelJointState>
     </plugin>
+  </gazebo>-->
+
+  <!-- Gazebo plugin for ROS Control -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
   </gazebo>
 
   <!-- hokuyo -->
   <gazebo reference="rgbd_camera_depth_frame">
+    <turnGravityOff>true</turnGravityOff>
     <sensor type="gpu_ray" name="head_hokuyo_sensor">
       <pose>0 0 0 0 0 0</pose>
-      <visualize>false</visualize>
-      <update_rate>40</update_rate>
+      <visualize>true</visualize>
+      <update_rate>30</update_rate>
       <ray>
         <scan>
           <horizontal>
             <samples>720</samples>
             <resolution>1</resolution>
-            <min_angle>-1.570796</min_angle>
-            <max_angle>1.570796</max_angle>
+            <min_angle>-${58.0*M_PI/360.0}</min_angle>
+            <max_angle>${58.0*M_PI/360.0}</max_angle>
           </horizontal>
         </scan>
         <range>
-          <min>0.10</min>
-          <max>30.0</max>
+          <min>0.8</min>
+          <max>3.0</max>
           <resolution>0.01</resolution>
         </range>
         <noise>
