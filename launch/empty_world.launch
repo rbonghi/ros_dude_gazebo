@@ -2,7 +2,7 @@
 <!--
 Software License Agreement (BSD)
 
-\file      dude_world.launch
+\file      empty_world.launch
 \authors   Raffaello Bonghi <raffaello.bonghi@officinerobotiche.it
 \copyright Copyright (c) 2015, Officine Robotiche, All rights reserved.
 
@@ -12,7 +12,7 @@ the following conditions are met:
    following disclaimer.
  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
    following disclaimer in the documentation and/or other materials provided with the distribution.
- * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
+ * Neither the name of Officine Robotiche nor the names of its contributors may be used to endorse or promote
    products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WAR-
@@ -25,6 +25,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <launch>
 
+  <arg name="world" default="dude.world"/>
+
   <!-- these are the arguments you can pass this launch file, for example paused:=true -->
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
@@ -34,7 +36,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find ros_dude_gazebo)/worlds/dude.world"/>
+    <arg name="world_name" value="$(find ros_dude_gazebo)/worlds/$(arg world)"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)"/>
