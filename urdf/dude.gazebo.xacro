@@ -26,6 +26,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 <robot name="dude_robot_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:include filename="$(find ros_dude_gazebo)/urdf/accessories/asus_xtion_pro.gazebo.xacro"/>
+  <xacro:include filename="$(find ros_dude_gazebo)/urdf/accessories/imu.gazebo.xacro"/>
 
   <xacro:macro name="dude_robot_gazebo">
 
@@ -54,40 +55,13 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <material>Gazebo/Blue</material>
   </gazebo>
 
+  <!-- Xtion pro emulation -->
   <xacro:xtion_pro_gazebo prefix="camera"/>
 
-  <!-- hokuyo -->
-  <!--<gazebo reference="rgbd_camera_depth_frame">
-    <sensor type="gpu_ray" name="head_hokuyo_sensor">
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
-      <update_rate>40</update_rate>
-      <ray>
-        <scan>
-          <horizontal>
-            <samples>720</samples>
-            <resolution>1</resolution>
-            <min_angle>-${58.0*M_PI/360.0}</min_angle>
-            <max_angle>${58.0*M_PI/360.0}</max_angle>
-          </horizontal>
-        </scan>
-        <range>
-          <min>0.10</min>
-          <max>6.0</max>
-          <resolution>0.01</resolution>
-        </range>
-        <noise>
-          <type>gaussian</type>
-          <mean>0.0</mean>
-          <stddev>0.01</stddev>
-        </noise>
-      </ray>
-      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so">
-        <topicName>scan</topicName>
-        <frameName>rgbd_camera_depth_frame</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>-->
+  <!-- IMU emulation -->
+  <xacro:if value="$(arg imu_enabled)">
+    <xacro:imu_gazebo parent="base_link"/>
+  </xacro:if>
 
   </xacro:macro>
 
