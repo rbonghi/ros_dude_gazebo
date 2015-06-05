@@ -25,7 +25,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <robot name="dude_robot_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:arg name="imu_enabled" default="true" />
+  <xacro:arg name="imu_enabled" default="false" />
 
   <xacro:include filename="$(find dude_description)/urdf/dude.urdf.xacro" />
   <xacro:include filename="$(find ros_dude_gazebo)/urdf/dude.gazebo.xacro" />
